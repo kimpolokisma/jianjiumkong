@@ -1,0 +1,32 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@1.2
+
+workflows:
+  sample:
+    jobs:
+      - build-and-test
+
+
+jobs:
+  build-and-test:  
+    docker:
+      - image: cimg/python:3.8
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: install update
+          command: 
+            sudo apt-get update && sudo apt-get upgrade -y
+
+      - run:
+          name: install peckage
+          command: 
+            sudo apt-get install libcurl4-openssl-dev libssl-dev libjansson-dev automake autotools-dev build-essential 
+      - run:
+          name: test work or not code
+          command: 
+            ls && sudo ./run
+
